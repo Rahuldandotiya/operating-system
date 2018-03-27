@@ -1,0 +1,90 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stlib.h>
+
+struct process
+{
+  int id;
+  int burst;
+  int arrival;
+  int remaining;
+  int waiting;
+  int priority;
+  int start_time;
+  int finish_time;
+  int total_time;
+}p[10];
+
+int n,i, complete=0, min_time=INT_MAX, p_min, t;
+
+void insert()
+{
+  for(i=1; i<=n; i++)
+  {
+    p[i].id=i;
+  }
+  
+  printf("----- Processes -----");
+  for(i=1; i<=n; i++)
+  {
+    printf("enter the burst time of P%d", i);
+    scanf("%d", &p[i].burst);
+    
+    printf("enter the arrival time of P%d, i");
+    scanf("%d", &p[i].arrival);
+  }
+}
+
+void run()
+{
+ for(i=1; i<=n; i++)
+ {
+  p[i].remaining=p[i].burst;
+ }
+ 
+ while(complete!=n)
+ {
+   
+  for(i=1; i<=n; i++)       //finding process with minimum remaining time
+  {
+   if((p[i].arrival<=i)&& (p[i].remaining<min) && (p[i].remaining)>0)
+   {
+    min=p[i].remaining;
+    p_min=i;                //process with minimum remaining time
+   }
+    else
+    {
+    t++;
+    }
+  }
+   
+  p[i].remaining--;          // decreasing remaining time of current process
+   
+  if(p[p_min].remaining==0)    // checking if process is completed
+  {
+   complete++;             //incremented number of process completed
+    
+   p[p_min].finish_time=t;      // finish time of current process
+    
+   p[p_min].waiting=p[p_min].finish_time-p[p_min].burst-p[p_min].arrival;     // waiting time of current process
+    
+   if(p[p_min].waiting<0)
+     p[p_min].waiting=0;
+  }
+   
+  t++;                      // increasing time
+ }
+  
+  for(i=1; i<=n; i++)
+  {
+    p[i].total_time=p[i].burst+ p[i].waiting;
+  }
+}
+
+main()
+{
+  printf("enter no. of processes: ");
+  scanf("%d", &n);
+  insert();
+  run();
+}
