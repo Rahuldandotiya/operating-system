@@ -1,7 +1,0 @@
-#include<unistd.h>
-#include<stdio.h>
-#include<fnctl.h>
-#include<sys/types.h>
-int main()
-{
-}
